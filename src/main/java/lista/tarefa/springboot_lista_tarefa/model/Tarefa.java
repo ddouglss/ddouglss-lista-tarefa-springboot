@@ -18,6 +18,10 @@ public class Tarefa {
     private LocalDate dataConclusao;
     private String usuarioId;
 
+    public Tarefa() {
+    }
+
+
     public Tarefa(String id, String titulo, String descricao, StatusTarefa status, LocalDate dataCriacao, LocalDate dataConclusao, String usuarioId) {
         this.id = id;
         this.titulo = titulo;

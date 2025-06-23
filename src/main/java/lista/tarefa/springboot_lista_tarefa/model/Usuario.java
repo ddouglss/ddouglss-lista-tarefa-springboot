@@ -1,5 +1,8 @@
 package lista.tarefa.springboot_lista_tarefa.model;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,10 +14,20 @@ public class Usuario {
 
     @Id
     private String id;
+
+    @NotBlank(message = "Nome é obrigatório")
     private String nome;
+
+    @Email(message = "Email inválido")
+    @NotBlank(message = "Email é obrigatório")
     private String email;
+
+    @Size(min = 6, message = "Senha deve ter pelo menos 6 caracteres")
     private String senha;
+
     private LocalDate dataCriacao = LocalDate.now();
+
+    public Usuario(){}
 
     public Usuario (String id, String nome, String email, String senha, LocalDate dataCriacao){
         this.id=id;
@@ -66,12 +79,15 @@ public class Usuario {
 
     @Override
     public boolean equals(Object o) {
-        if (!(o instanceof Usuario usuario)) return false;
-        return Objects.equals(getId(), usuario.getId()) && Objects.equals(getNome(), usuario.getNome()) && Objects.equals(getEmail(), usuario.getEmail()) && Objects.equals(getSenha(), usuario.getSenha()) && Objects.equals(getDataCriacao(), usuario.getDataCriacao());
+        if (this == o) return true;
+        if (!(o instanceof Usuario)) return false;
+        Usuario that = (Usuario) o;
+        return Objects.equals(id, that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getNome(), getEmail(), getSenha(), getDataCriacao());
+        return Objects.hash(id);
     }
+
 }
